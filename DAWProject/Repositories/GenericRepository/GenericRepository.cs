@@ -11,82 +11,82 @@ namespace DAWProject.Repositories.GenericRepository
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        protected readonly DawAppContext _context;
-        protected readonly DbSet<TEntity> _table;
-        public GenericRepository(DawAppContext dbContext)
+        private readonly DawAppContext _context;
+        protected readonly DbSet<TEntity> Table;
+        protected GenericRepository(DawAppContext dbContext)
         {
             _context = dbContext;
-            _table = _context.Set<TEntity>();
+            Table = _context.Set<TEntity>();
         }
 
         public  async Task<List<TEntity>> GetAll()
         {
-            return await _table.AsNoTracking().ToListAsync();
+            return await Table.AsNoTracking().ToListAsync();
         }
 
-        public IQueryable<TEntity> GetAllAsQuerable()
+        public virtual IQueryable<TEntity> GetAllAsQueryable()
         {
-            return _table.AsNoTracking();
+            return Table.AsQueryable();
         }
 
-        public void Create(TEntity entity)
+        public TEntity Create(TEntity entity)
         {
-            _table.Add(entity);
+            return Table.Add(entity).Entity;
         }
 
-        public void Update(TEntity entity)
+        public TEntity Update(TEntity entity)
         {
-            _table.Update(entity);
+            return Table.Update(entity).Entity;
         }
 
-        public void Delete(TEntity entity)
+        public TEntity Delete(TEntity entity)
         {
-            _table.Remove(entity);
+            return Table.Remove(entity).Entity;
         }
         public void CreateRange(IEnumerable<TEntity> entities)
         {
-            _table.AddRange(entities);
+            Table.AddRange(entities);
         }
 
         public void UpdateRange(IEnumerable<TEntity> entities)
         {
-            _table.UpdateRange(entities);
+            Table.UpdateRange(entities);
 
         }
 
         public void DeleteRange(IEnumerable<TEntity> entities)
         {
-            _table.RemoveRange(entities);
+            Table.RemoveRange(entities);
 
         }
 
         public async Task CreateAsync(TEntity entity)
         {
-            await _table.AddAsync(entity);
+            await Table.AddAsync(entity);
         }
 
         public async Task CreateRangeAsync(IEnumerable<TEntity> entities)
         {
-            await _table.AddRangeAsync(entities);
+            await Table.AddRangeAsync(entities);
         }
 
         public TEntity FindById(object id)
         {
-            return _table.Find(id);
+            return Table.Find(id);
         }
 
         public async Task<TEntity> FindByIdAsync(object id)
         {
-            return await _table.FindAsync(id);
+            return await Table.FindAsync(id);
         }
 
         public TEntity FindByIds(params object[] ids)
         {
-            return _table.Find(ids[0], ids[1]);
+            return Table.Find(ids[0], ids[1]);
         }
         public async Task<TEntity> FindByIdsAsync(params object[] ids)
         {
-            return await _table.FindAsync(ids[0], ids[1]);
+            return await Table.FindAsync(ids[0], ids[1]);
         }
 
         public async Task<bool> SaveAsync()
@@ -114,9 +114,9 @@ namespace DAWProject.Repositories.GenericRepository
             }
             catch (SqlException ex)
             {
-                StringBuilder errorMessages = new StringBuilder();
+                var errorMessages = new StringBuilder();
 
-                for (int i = 0; i < ex.Errors.Count; i++)
+                for (var i = 0; i < ex.Errors.Count; i++)
                 {
                     errorMessages.Append("Index #" + i + "\n" +
                                          "Message: " + ex.Errors[i].Message + "\n" +

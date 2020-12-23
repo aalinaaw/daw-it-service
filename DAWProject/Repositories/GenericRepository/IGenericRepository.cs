@@ -6,14 +6,14 @@ namespace DAWProject.Repositories.GenericRepository
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
-        IQueryable<TEntity> GetAllAsQuerable();
+        IQueryable<TEntity> GetAllAsQueryable();
         Task<List<TEntity>> GetAll();
 
-        void Create(TEntity entity);
+        TEntity Create(TEntity entity);
 
-        void Update(TEntity entity);
+        TEntity Update(TEntity entity);
 
-        void Delete(TEntity entity);
+        TEntity Delete(TEntity entity);
 
         void CreateRange(IEnumerable<TEntity> entities);
 
