@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DAWProject.Services.UserServices
+namespace DAWProject.Services.UserService
 {
     public interface IUserService
     {
-        UserResponseDTO Authentificate(UserRequestDTO model);
-        IEnumerable<User> GetAllUsers();
+        IEnumerable<User> GetAll();
         User GetById(Guid id);
 
+        void CreateUser(UserDto userDto);
     }
 }

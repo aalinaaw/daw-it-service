@@ -1,70 +1,48 @@
-﻿using DAWProject.Models;
-using DAWProject.Models.DTOs;
-using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Security.Claims;
+using System.Text;
 using DAWProject.Helpers;
+using DAWProject.Models;
+using DAWProject.Models.Base;
+using DAWProject.Models.DTOs;
+using DAWProject.Repositories.UserRepository;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
-namespace DAWProject.Services.UserServices
+namespace DAWProject.Services.UserService
 {
     public class UserService: IUserService
     {
-        private readonly AppSettings _appSettings;
+        private readonly IUserRepository _userRepository;
 
-        private List<User> _users = new List<User>
+        public UserService(IUserRepository userRepository, IOptions<AppSettings> appSettings)
         {
-            new User {Id = new Guid(),
-            FirstName = "Test",
-            LastName = "User",
-            Username = "454",
-            Password = "test"
-            }
-        };
-        public UserService(IOptions<AppSettings> appSettings)
-        {
-            _appSettings = appSettings.Value;
+            _userRepository = userRepository;
         }
 
-        public UserResponseDTO Authentificate(UserRequestDTO model)
+        public IEnumerable<User> GetAll()
         {
-            var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
-
-            if (user == null) return null;
-
-            var token = GenerateUserJWTToken(user);
-
-            return new UserResponseDTO(user, token);
-        }
-
-        private string GenerateUserJWTToken(User user)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
-                Expires = DateTime.UtcNow.AddDays(10),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
-        }
-
-        public IEnumerable<User> GetAllUsers()
-        {
-            throw new NotImplementedException();
+            return _userRepository.GetAllAsQueryable();
         }
 
         public User GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return _userRepository.FindById(id);
+        }
+
+        public void CreateUser(UserDto userDto)
+        {
+            _userRepository.Create(new User
+            {
+                FirstName = userDto.FirstName,
+                LastName = userDto.LastName,
+                Username = userDto.Username,
+                Password = userDto.Password
+            });
+            _userRepository.Save();
         }
     }
 }
