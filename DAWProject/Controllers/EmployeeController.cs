@@ -1,6 +1,7 @@
 ﻿using DAWProject.Helpers;
 using DAWProject.Models;
 using DAWProject.Models.DTOs;
+using DAWProject.Services.EmployeeService;
 using DAWProject.Services.UserService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,26 +9,27 @@ namespace DAWProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class EmployeeController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IEmployeeService _employeeService;
 
-        public UsersController(IUserService userService)
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _userService = userService;
+            _employeeService = employeeService;
         }
-
+        
+        
         [HttpGet]
         public IActionResult GetAll()
         {
-            var users = _userService.GetAll();
+            var users = _employeeService.GetAll();
             return Ok(users);
         }
         
         [HttpPost]
-        public IActionResult CreateUser(UserDto userDto)
+        public IActionResult CreateEmployee(Employee employee)
         {
-            _userService.CreateUser(userDto);
+            _employeeService.Create(employee);
             return Ok();
         }
 
