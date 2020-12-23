@@ -19,217 +19,159 @@ namespace DAWProject.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DAWProject.Models.DataBaseModel", b =>
+            modelBuilder.Entity("DAWProject.Models.Employee", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2");
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DateModified")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2");
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("DataBaseModels");
+                    b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("DAWProject.Models.Relations.Many_to_Many.Model3", b =>
+            modelBuilder.Entity("DAWProject.Models.EmployeeTicket", b =>
+                {
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TicketId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("EmployeeId", "TicketId");
+
+                    b.HasIndex("TicketId");
+
+                    b.ToTable("EmployeeTickets");
+                });
+
+            modelBuilder.Entity("DAWProject.Models.ServiceType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateModified")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
+                    b.Property<string>("ServiceName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Models3");
+                    b.ToTable("ServiceType");
                 });
 
-            modelBuilder.Entity("DAWProject.Models.Relations.Many_to_Many.Model4", b =>
+            modelBuilder.Entity("DAWProject.Models.Ticket", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateModified")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TicketTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Models4");
+                    b.HasIndex("TicketTypeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Tickets");
                 });
 
-            modelBuilder.Entity("DAWProject.Models.Relations.Many_to_Many.ModelsRelation", b =>
-                {
-                    b.Property<Guid>("Model3Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("Model4Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Model3Id", "Model4Id");
-
-                    b.HasIndex("Model4Id");
-
-                    b.ToTable("ModelsRelations");
-                });
-
-            modelBuilder.Entity("DAWProject.Models.Relations.One_to_Many.Model1", b =>
+            modelBuilder.Entity("DAWProject.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2");
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DateModified")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2");
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UserTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Models1");
+                    b.HasIndex("UserTypeId");
+
+                    b.ToTable("User");
                 });
 
-            modelBuilder.Entity("DAWProject.Models.Relations.One_to_Many.Model2", b =>
+            modelBuilder.Entity("DAWProject.Models.UserType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateModified")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("Model1Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Model1Id");
-
-                    b.ToTable("Models2");
+                    b.ToTable("UserType");
                 });
 
-            modelBuilder.Entity("DAWProject.Models.Relations.One_to_One.Model5", b =>
+            modelBuilder.Entity("DAWProject.Models.EmployeeTicket", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateModified")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Models5");
-                });
-
-            modelBuilder.Entity("DAWProject.Models.Relations.One_to_One.Model6", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateModified")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("Model5Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Model5Id")
-                        .IsUnique();
-
-                    b.ToTable("Models6");
-                });
-
-            modelBuilder.Entity("DAWProject.Models.Relations.Many_to_Many.ModelsRelation", b =>
-                {
-                    b.HasOne("DAWProject.Models.Relations.Many_to_Many.Model3", "Model3")
-                        .WithMany("ModelRelations")
-                        .HasForeignKey("Model3Id")
+                    b.HasOne("DAWProject.Models.Employee", "Employee")
+                        .WithMany("Tickets")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAWProject.Models.Relations.Many_to_Many.Model4", "Model4")
-                        .WithMany("ModelRelations")
-                        .HasForeignKey("Model4Id")
+                    b.HasOne("DAWProject.Models.Ticket", "Ticket")
+                        .WithMany("Employees")
+                        .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DAWProject.Models.Relations.One_to_Many.Model2", b =>
+            modelBuilder.Entity("DAWProject.Models.Ticket", b =>
                 {
-                    b.HasOne("DAWProject.Models.Relations.One_to_Many.Model1", "Model1")
-                        .WithMany("Models2")
-                        .HasForeignKey("Model1Id")
+                    b.HasOne("DAWProject.Models.ServiceType", "TicketType")
+                        .WithMany("Tickets")
+                        .HasForeignKey("TicketTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAWProject.Models.User", "User")
+                        .WithMany("Tickets")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DAWProject.Models.Relations.One_to_One.Model6", b =>
+            modelBuilder.Entity("DAWProject.Models.User", b =>
                 {
-                    b.HasOne("DAWProject.Models.Relations.One_to_One.Model5", "Model5")
-                        .WithOne("Model6")
-                        .HasForeignKey("DAWProject.Models.Relations.One_to_One.Model6", "Model5Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("DAWProject.Models.UserType", "UserType")
+                        .WithMany()
+                        .HasForeignKey("UserTypeId");
                 });
 #pragma warning restore 612, 618
         }

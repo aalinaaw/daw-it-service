@@ -1,12 +1,11 @@
-﻿using DAWProject.Services.UserServices;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAWProject.Services.UserService;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace DAWProject.Helpers
@@ -24,7 +23,7 @@ namespace DAWProject.Helpers
 
         public async Task Invoke (HttpContext httpContext, IUserService userService)
         {
-            var token = httpContext.Request.Headers["Autorization"].FirstOrDefault()?.Split("").Last();
+            var token = httpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split("").Last();
             if(token != null)
             {
                 AttachUserToHttpContext(httpContext, userService, token);

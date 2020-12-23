@@ -1,15 +1,22 @@
+using DAWProject.Data;
+using DAWProject.Helpers;
+using DAWProject.Repositories.EmployeeRepository;
+using DAWProject.Repositories.ServiceTypeRepository;
+using DAWProject.Repositories.TicketRepository;
+using DAWProject.Repositories.UserRepository;
+using DAWProject.Services.EmployeeService;
+using DAWProject.Services.ServiceTypeService;
+using DAWProject.Services.TicketService;
+using DAWProject.Services.UserService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using DAWProject.Repositories.DatabaseRepository;
-using DAWProject.Services.DemoService;
-using DAWProject.Helpers;
-using DAWProject.Services.UserServices;
+using AuthenticationService = DAWProject.Services.AuthenticationService.AuthenticationService;
+using IAuthenticationService = DAWProject.Services.AuthenticationService.IAuthenticationService;
 
 namespace DAWProject
 {
@@ -20,7 +27,7 @@ namespace DAWProject
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -31,22 +38,23 @@ namespace DAWProject
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddDbContext<Data.DawAppContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-
+            services.AddDbContext<DawAppContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    );
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITicketService, TicketService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IServiceTypeService, ServiceTypeService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             // Repositories
-
-            // Created each time they are requested 
-            services.AddTransient<IDatabaseRepository, DatabaseRepository>();
-            // They are created on the first request
-            // services.AddSingleton
-            // Created once per client request
-            // services.AddScoped
-            services.AddTransient<IDemoService, DemoService>();
-
+            services.AddTransient<ITicketRepository, TicketRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+            services.AddTransient<IServiceTypeRepository, ServiceTypeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,24 +63,19 @@ namespace DAWProject
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStaticFiles();
             }
             else
             {
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
                 app.UseSpaStaticFiles();
+                app.UseHttpsRedirection();
             }
 
             app.UseRouting();
             app.UseMiddleware<JWTMiddleware>();
-
 
             app.UseEndpoints(endpoints =>
             {
