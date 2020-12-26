@@ -30,6 +30,7 @@ namespace DAWProject.Controllers
         public IActionResult CreateEmployee(Employee employee)
         {
             _employeeService.Create(employee);
+            _employeeService.Save();
             return Ok();
         }
 

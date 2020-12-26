@@ -22,7 +22,7 @@ namespace DAWProject.Controllers
 
             if(result == null)
             {
-                return BadRequest(new { Message = "Username or Password is invalid!" });
+                return Unauthorized(new { Message = "Username or Password is invalid!" });
             }
             return Ok(result);
         }
@@ -34,7 +34,7 @@ namespace DAWProject.Controllers
 
             if(result == null)
             {
-                return BadRequest(new { Message = "Username or Password is invalid!" });
+                return Unauthorized(new { Message = "Username or Password is invalid!" });
             }
             return Ok(result);
         }

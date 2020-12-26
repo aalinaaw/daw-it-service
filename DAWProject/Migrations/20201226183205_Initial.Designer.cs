@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAWProject.Migrations
 {
     [DbContext(typeof(DawAppContext))]
-    [Migration("20201222104733_Initial")]
+    [Migration("20201226183205_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,7 +82,7 @@ namespace DAWProject.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("TicketTypeId")
+                    b.Property<Guid>("TicketTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
@@ -92,8 +92,7 @@ namespace DAWProject.Migrations
 
                     b.HasIndex("TicketTypeId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tickets");
                 });
@@ -113,7 +112,7 @@ namespace DAWProject.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("UserTypeId")
+                    b.Property<Guid>("UserTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Username")
@@ -158,12 +157,14 @@ namespace DAWProject.Migrations
             modelBuilder.Entity("DAWProject.Models.Ticket", b =>
                 {
                     b.HasOne("DAWProject.Models.ServiceType", "TicketType")
-                        .WithMany()
-                        .HasForeignKey("TicketTypeId");
+                        .WithMany("Tickets")
+                        .HasForeignKey("TicketTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DAWProject.Models.User", "User")
-                        .WithOne("Ticket")
-                        .HasForeignKey("DAWProject.Models.Ticket", "UserId")
+                        .WithMany("Tickets")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -171,8 +172,10 @@ namespace DAWProject.Migrations
             modelBuilder.Entity("DAWProject.Models.User", b =>
                 {
                     b.HasOne("DAWProject.Models.UserType", "UserType")
-                        .WithMany()
-                        .HasForeignKey("UserTypeId");
+                        .WithMany("Users")
+                        .HasForeignKey("UserTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

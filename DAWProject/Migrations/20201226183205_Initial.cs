@@ -55,7 +55,7 @@ namespace DAWProject.Migrations
                     LastName = table.Column<string>(nullable: true),
                     Username = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
-                    UserTypeId = table.Column<Guid>(nullable: true)
+                    UserTypeId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,7 +65,7 @@ namespace DAWProject.Migrations
                         column: x => x.UserTypeId,
                         principalTable: "UserType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,7 +74,7 @@ namespace DAWProject.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    TicketTypeId = table.Column<Guid>(nullable: true),
+                    TicketTypeId = table.Column<Guid>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -85,7 +85,7 @@ namespace DAWProject.Migrations
                         column: x => x.TicketTypeId,
                         principalTable: "ServiceType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tickets_User_UserId",
                         column: x => x.UserId,
@@ -131,8 +131,7 @@ namespace DAWProject.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_UserId",
                 table: "Tickets",
-                column: "UserId",
-                unique: true);
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_UserTypeId",

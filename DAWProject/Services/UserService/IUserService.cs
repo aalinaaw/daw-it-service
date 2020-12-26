@@ -13,5 +13,8 @@ namespace DAWProject.Services.UserService
         User GetById(Guid id);
 
         void CreateUser(UserDto userDto);
+        List<UserType> GetAllUserTypes();
+
+        void CreateUserType(UserType userType);
     }
 }

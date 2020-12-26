@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using DAWProject.Models.Base;
+using Newtonsoft.Json;
 
 namespace DAWProject.Models
 {
@@ -17,6 +14,7 @@ namespace DAWProject.Models
         [JsonIgnore]
         public string Password { get; set; }
         
+        public Guid UserTypeId { get; set; }
         public UserType UserType { get; set; }
         
         [JsonIgnore]

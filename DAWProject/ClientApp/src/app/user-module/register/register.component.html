@@ -1,0 +1,35 @@
+<form class="form-signin">
+  <h1 class="h3 mb-3 font-weight-normal">Please Register</h1>
+  <label for="inputFirstName" class="sr-only">First Name</label>
+  <input [(ngModel)]="user.firstName" name="firstName" type="text" id="inputFirstName" class="form-control"
+         placeholder="First Name"
+         required autofocus>
+
+  <label for="inputLastName" class="sr-only">LastName</label>
+  <input [(ngModel)]="user.lastName" name="lastName" type="text" id="inputLastName" class="form-control"
+         placeholder="Last Name"
+         required autofocus>
+
+  <label for="inputUsername" class="sr-only">Username</label>
+  <input [(ngModel)]="user.userName" name="userName" type="text" id="inputUsername" class="form-control"
+         placeholder="Username" required
+         autofocus>
+
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input [(ngModel)]="user.password" name="password" type="password" id="inputPassword" class="form-control"
+         placeholder="Password"
+         required>
+
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+      {{user.userType ? user.userType.type : "n/a"}}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a *ngFor="let userType of userTypes" class="dropdown-item" href="#"
+         (click)="onSelectUserType(userType)">{{userType.type}}</a>
+    </div>
+  </div>
+
+  <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="onRegister()">Register</button>
+</form>

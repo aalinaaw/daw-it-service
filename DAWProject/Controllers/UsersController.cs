@@ -24,6 +24,20 @@ namespace DAWProject.Controllers
             return Ok(users);
         }
         
+        [HttpGet("types")]
+        public IActionResult GetAllUserTypes()
+        {
+            var users = _userService.GetAllUserTypes();
+            return Ok(users);
+        }
+        
+        [HttpPost("types")]
+        public IActionResult CreateUserType(UserType userType)
+        {
+            _userService.CreateUserType(userType);
+            return Ok();
+        }
+        
         [HttpPost]
         public IActionResult CreateUser(UserDto userDto)
         {

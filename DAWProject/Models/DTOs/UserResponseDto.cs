@@ -7,12 +7,12 @@ namespace DAWProject.Models.DTOs
 {
     public class UserResponseDto
     {
-        private Guid Id { get; }
-        private string FirstName { get; }
-        private string LastName { get; }
+        public Guid Id { get; }
+        public string FirstName { get; }
+        public string LastName { get; }
 
-        private string Username { get; }
-        private string Token { get; }
+        public string Username { get; }
+        public string Token { get; }
 
         public UserResponseDto(User user, string token)
         {

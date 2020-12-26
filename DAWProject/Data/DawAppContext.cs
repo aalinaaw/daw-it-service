@@ -18,7 +18,11 @@ namespace DAWProject.Data
             builder.Entity<User>()
                 .HasMany<Ticket>(u => u.Tickets)
                 .WithOne(t => t.User);
-            
+
+            builder.Entity<User>()
+                .HasOne(u => u.UserType)
+                .WithMany(type => type.Users);
+
             builder.Entity<EmployeeTicket>()
                 .HasKey(et => new { et.EmployeeId, et.TicketId });
             builder.Entity<EmployeeTicket>()

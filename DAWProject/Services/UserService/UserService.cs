@@ -9,6 +9,7 @@ using DAWProject.Models;
 using DAWProject.Models.Base;
 using DAWProject.Models.DTOs;
 using DAWProject.Repositories.UserRepository;
+using DAWProject.Repositories.UserTypeRepository;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -17,10 +18,17 @@ namespace DAWProject.Services.UserService
     public class UserService: IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IUserTypeRepository _userTypeRepository;
 
-        public UserService(IUserRepository userRepository, IOptions<AppSettings> appSettings)
+        public UserService(IUserRepository userRepository, IUserTypeRepository userTypeRepository)
         {
             _userRepository = userRepository;
+            _userTypeRepository = userTypeRepository;
+        }
+
+        public List<UserType> GetAllUserTypes()
+        {
+            return _userTypeRepository.GetAllAsQueryable().ToList();
         }
 
         public IEnumerable<User> GetAll()
@@ -40,9 +48,16 @@ namespace DAWProject.Services.UserService
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
                 Username = userDto.Username,
-                Password = userDto.Password
+                Password = userDto.Password,
+                UserTypeId = userDto.UserType.Id
             });
             _userRepository.Save();
+        }
+
+        public void CreateUserType(UserType userType)
+        {
+            _userTypeRepository.Create(userType);
+            _userTypeRepository.Save();
         }
     }
 }

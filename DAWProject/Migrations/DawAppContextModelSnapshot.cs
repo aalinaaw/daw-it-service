@@ -110,7 +110,7 @@ namespace DAWProject.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("UserTypeId")
+                    b.Property<Guid>("UserTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Username")
@@ -170,8 +170,10 @@ namespace DAWProject.Migrations
             modelBuilder.Entity("DAWProject.Models.User", b =>
                 {
                     b.HasOne("DAWProject.Models.UserType", "UserType")
-                        .WithMany()
-                        .HasForeignKey("UserTypeId");
+                        .WithMany("Users")
+                        .HasForeignKey("UserTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
