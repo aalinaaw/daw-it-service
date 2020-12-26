@@ -15,6 +15,9 @@ import {LoginEmployeeComponent} from "./user-module/login-employee/login-employe
 import {JwtInterceptor} from "./user-module/jwt.interceptor";
 import {ErrorInterceptor} from "./user-module/error.interceptor";
 import {AuthGuard} from "./user-module/auth.guard";
+import {CreateTicketComponent} from "./service-module/create-ticket/create-ticket.component";
+import {ServiceModuleModule} from "./service-module/service-module.module";
+import {ViewTicketsComponent} from "./service-module/view-tickets/view-tickets.component";
 
 @NgModule({
   declarations: [
@@ -27,12 +30,15 @@ import {AuthGuard} from "./user-module/auth.guard";
     HttpClientModule,
     FormsModule,
     UserModuleModule,
+    ServiceModuleModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
       { path: 'login-employee', component: LoginEmployeeComponent },
       { path: 'register', component: RegisterComponent },
-      { path: 'help', component: HelpComponent, canActivate: [AuthGuard] }
+      { path: 'help', component: HelpComponent, canActivate: [AuthGuard] },
+      { path: 'create-ticket', component: CreateTicketComponent, canActivate: [AuthGuard] },
+      { path: 'view-tickets', component: ViewTicketsComponent, canActivate: [AuthGuard] }
     ])
   ],
   providers: [

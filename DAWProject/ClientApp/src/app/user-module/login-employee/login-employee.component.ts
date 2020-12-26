@@ -19,7 +19,6 @@ export class LoginEmployeeComponent implements OnInit {
   }
 
   onLogin() {
-    console.log(this.user)
     this.authService.loginEmployee(this.user.username, this.user.password)
       .pipe(first())
       .subscribe(

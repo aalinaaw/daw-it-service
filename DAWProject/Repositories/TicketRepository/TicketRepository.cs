@@ -24,13 +24,20 @@ namespace DAWProject.Repositories.TicketRepository
 
         public IEnumerable<Ticket> FindByUser(User user)
         {
-            return Table.Where(ticket => ticket.User.Id.Equals(user.Id));
+            return Table.Where(ticket => ticket.UserId.Equals(user.Id))
+                .Include(ticket => ticket.Employees)
+                    .ThenInclude(et => et.Employee)
+                .Include(ticket => ticket.TicketType)
+                .Include(ticket => ticket.User);;
         }
 
         public IEnumerable<Ticket> FindByEmployee(Employee employee)
         {
             return Table.Where(ticket =>
-                ticket.Employees.Any(employeeTicket => employeeTicket.EmployeeId.Equals(employee.Id)));
+                ticket.Employees.Any(employeeTicket => employeeTicket.EmployeeId.Equals(employee.Id)))
+                .Include(ticket => ticket.Employees)
+                .Include(ticket => ticket.TicketType)
+                .Include(ticket => ticket.User);
         }
     }
 }

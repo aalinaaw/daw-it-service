@@ -4,6 +4,7 @@
   >
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">DAWProject</a>
+      <span>Hello, {{username}}</span>
       <button
         class="navbar-toggler"
         type="button"
@@ -26,6 +27,18 @@
             [routerLinkActiveOptions]="{ exact: true }"
           >
             <a class="nav-link text-dark" [routerLink]="['/']" *ngIf="isUserLoggedIn() || isEmployeeLoggedIn()">Home</a>
+          </li>
+
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isUserLoggedIn()">
+            <a class="nav-link text-dark" [routerLink]="['/create-ticket']"
+            >Create Ticket</a
+            >
+          </li>
+
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isUserLoggedIn() || isEmployeeLoggedIn()">
+            <a class="nav-link text-dark" [routerLink]="['/view-tickets']"
+            >View Tickets</a
+            >
           </li>
 
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="!isUserLoggedIn()">

@@ -13,7 +13,6 @@ export class RegisterComponent implements OnInit {
 
   user: User = new User()
   userTypes = Array<UserType>();
-  selectedUserType: UserType;
 
   constructor(private router: Router, private registerService: RegisterService, private userService: UserService) { }
 

@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using DAWProject.Models;
 using DAWProject.Models.DTOs;
 using DAWProject.Services.TicketService;
 using Microsoft.AspNetCore.Http;
@@ -29,14 +31,16 @@ namespace DAWProject.Controllers
         public IActionResult GetByEmployee(Guid id)
         {
             var tickets = _ticketService.GetAllTicketsByEmployeeId(id).ToList();
-            return Ok(tickets);
+            var ticketDtos = mapTicketDtos(tickets);
+            return Ok(ticketDtos);
         }
         
         [HttpGet("user/{id}")]
         public IActionResult GetByUser(Guid id)
         {
             var tickets = _ticketService.GetAllTicketsByUser(id).ToList();
-            return Ok(tickets);
+            var ticketDtos = mapTicketDtos(tickets);
+            return Ok(ticketDtos);
         }
         
         [HttpPost]
@@ -46,6 +50,25 @@ namespace DAWProject.Controllers
         {
             var ticket = _ticketService.CreateNewTicket(ticketDto);
             return Ok(ticket);
+        }
+
+        private List<TicketDto> mapTicketDtos(List<Ticket> tickets)
+        {
+            var ticketDtos = new List<TicketDto>();
+            foreach (var ticket in tickets)
+            {
+                ticketDtos.Add(new TicketDto
+                {
+                    Id = ticket.Id,
+                    Description = ticket.Description,
+                    TicketType = ticket.TicketType,
+                    UserId = ticket.UserId,
+                    Username = ticket.User.Username,
+                    Employees = ticket.Employees.Select(employeeTicket => employeeTicket.Employee).ToList()
+                });
+            }
+
+            return ticketDtos;
         }
     }
 }

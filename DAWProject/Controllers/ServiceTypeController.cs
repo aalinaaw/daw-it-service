@@ -35,6 +35,7 @@ namespace DAWProject.Controllers
             {
                 ServiceName = serviceTypeDto.ServiceName
             });
+            _serviceTypeService.Save();
             return Ok(newServiceType);
         }
     }

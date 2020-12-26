@@ -1,0 +1,22 @@
+<form class="form-signin">
+  <h1 class="h3 mb-3 font-weight-normal">Please Create A Ticket</h1>
+
+  <label for="inputTicketDescription" class="sr-only">Description</label>
+  <input [(ngModel)]="ticket.description" name="description" type="text" id="inputTicketDescription"
+         class="form-control"
+         placeholder="Description" required autofocus>
+
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+      {{ticket.ticketType ? ticket.ticketType.serviceName : "n/a"}}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a *ngFor="let ticketType of ticketTypes" class="dropdown-item"
+         (click)="onSelectTicketType(ticketType)">{{ticketType.serviceName}}</a>
+    </div>
+  </div>
+
+
+  <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="onCreateTicket()">Create Ticket</button>
+</form>

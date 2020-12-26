@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../user-module/auth.service";
 import {Router} from "@angular/router";
 
@@ -7,11 +7,21 @@ import {Router} from "@angular/router";
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent {
+export class NavMenuComponent implements OnInit {
   isExpanded = false;
+  username = "";
 
   constructor(private authService: AuthService,
               private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.authService.currentEmployee.subscribe(result => {
+      this.username = result != null ? result.username : this.username
+    })
+    this.authService.currentUser.subscribe(result => {
+      this.username = result != null ? result.username : this.username
+    })
   }
 
   collapse() {
@@ -23,6 +33,7 @@ export class NavMenuComponent {
   }
 
   onLogout() {
+    this.username = "";
     this.authService.logout();
     this.router.navigate(["login"])
   }
@@ -31,12 +42,13 @@ export class NavMenuComponent {
     return this.authService.currentUserValue != null
   }
 
-  isEmployeeLoggedIn(){
+  isEmployeeLoggedIn() {
     return this.authService.currentEmployeeValue != null
   }
 
   onLogoutEmployee() {
-      this.authService.logoutEmployee();
-      this.router.navigate(["login-employee"])
+    this.username = "";
+    this.authService.logoutEmployee();
+    this.router.navigate(["login-employee"])
   }
 }

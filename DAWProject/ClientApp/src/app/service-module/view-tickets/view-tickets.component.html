@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col">Description</th>
+    <th scope="col">Ticket Type</th>
+    <th scope="col">User</th>
+    <th scope="col">Employees</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let ticket of tickets">
+    <th scope="row">{{ticket.id}}</th>
+    <td>{{ticket.description}}</td>
+    <td>{{ticket.ticketType.serviceName}}</td>
+    <td>{{ticket.username}}</td>
+    <td><span>{{getTicketEmployees(ticket)}}</span></td>
+  </tr>
+  </tbody>
+</table>
