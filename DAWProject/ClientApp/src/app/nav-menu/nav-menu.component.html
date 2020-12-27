@@ -26,52 +26,52 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/']" *ngIf="isUserLoggedIn() || isEmployeeLoggedIn()">Home</a>
+            <a class="nav-link text-dark" [routerLink]="['/']" *ngIf="showForUser || showForEmployee">Home</a>
           </li>
 
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isUserLoggedIn()">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="showForUser">
             <a class="nav-link text-dark" [routerLink]="['/create-ticket']"
             >Create Ticket</a
             >
           </li>
 
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isUserLoggedIn() || isEmployeeLoggedIn()">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="showForUser || showForEmployee">
             <a class="nav-link text-dark" [routerLink]="['/view-tickets']"
             >View Tickets</a
             >
           </li>
 
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="!isUserLoggedIn()">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="showLoginForUser">
             <a class="nav-link text-dark" [routerLink]="['/login']"
             >Login</a
             >
           </li>
 
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="!isEmployeeLoggedIn()">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="showLoginForEmployee">
             <a class="nav-link text-dark" [routerLink]="['/login-employee']"
             >Login Employee</a
             >
           </li>
 
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="!isUserLoggedIn() || !isUserLoggedIn()">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="showRegister">
             <a class="nav-link text-dark" [routerLink]="['/register']"
             >Register</a
             >
           </li>
 
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isUserLoggedIn()">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="showForUser">
             <a class="nav-link text-dark" [routerLink]="['/help']"
             >Help</a
             >
           </li>
 
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isUserLoggedIn()">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="showForUser && !showForEmployee">
             <a class="nav-link text-dark" (click)="onLogout()"
             >Logout</a
             >
           </li>
 
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isEmployeeLoggedIn()">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="!showForUser && showForEmployee">
             <a class="nav-link text-dark" (click)="onLogoutEmployee()"
             >Logout Employee</a
             >

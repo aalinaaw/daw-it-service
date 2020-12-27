@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../user-module/auth.service";
 import {Router} from "@angular/router";
+import {User} from "../user-module/model/User";
 
 @Component({
   selector: 'app-nav-menu',
@@ -10,6 +11,11 @@ import {Router} from "@angular/router";
 export class NavMenuComponent implements OnInit {
   isExpanded = false;
   username = "";
+  showForUser = false;
+  showForEmployee = false;
+  showLoginForUser = true;
+  showLoginForEmployee = true;
+  showRegister = true;
 
   constructor(private authService: AuthService,
               private router: Router) {
@@ -17,10 +23,38 @@ export class NavMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.currentEmployee.subscribe(result => {
-      this.username = result != null ? result.username : this.username
+      if (result != null) {
+        this.username = result.username
+        this.showForEmployee = true
+        this.showForUser = false
+        this.showLoginForUser = false
+        this.showLoginForEmployee = false
+        this.showRegister = false
+      } else {
+        this.username = ""
+        this.showForEmployee = false
+        this.showForUser = false
+        this.showLoginForUser = true
+        this.showLoginForEmployee = true
+        this.showRegister = true
+      }
     })
     this.authService.currentUser.subscribe(result => {
-      this.username = result != null ? result.username : this.username
+      if (result != null) {
+        this.username = result.username
+        this.showForEmployee = false
+        this.showForUser = true
+        this.showLoginForUser = false
+        this.showLoginForEmployee = false
+        this.showRegister = false
+      } else {
+        this.username = ""
+        this.showForEmployee = false
+        this.showForUser = false
+        this.showLoginForUser = true
+        this.showLoginForEmployee = true
+        this.showRegister = true
+      }
     })
   }
 
@@ -33,21 +67,11 @@ export class NavMenuComponent implements OnInit {
   }
 
   onLogout() {
-    this.username = "";
     this.authService.logout();
     this.router.navigate(["login"])
   }
 
-  isUserLoggedIn() {
-    return this.authService.currentUserValue != null
-  }
-
-  isEmployeeLoggedIn() {
-    return this.authService.currentEmployeeValue != null
-  }
-
   onLogoutEmployee() {
-    this.username = "";
     this.authService.logoutEmployee();
     this.router.navigate(["login-employee"])
   }
