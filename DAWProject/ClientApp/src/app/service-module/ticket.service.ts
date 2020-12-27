@@ -36,4 +36,12 @@ export class TicketService {
   createTicketType(ticketType: TicketType) {
     return this.http.post( `${this.baseUrl}api/servicetype/`, ticketType);
   }
+
+  updateTicket(ticket: Ticket) {
+    return this.http.put( `${this.baseUrl}api/ticket`, ticket);
+  }
+
+  deleteTicket(ticketId: string) {
+    return this.http.delete( `${this.baseUrl}api/ticket/${ticketId}`);
+  }
 }

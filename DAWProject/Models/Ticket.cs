@@ -21,5 +21,7 @@ namespace DAWProject.Models
         
         [JsonIgnore]
         public User User { get; set; }
+        
+        public String Status { get; set; }
     }
 }

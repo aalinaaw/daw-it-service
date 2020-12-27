@@ -14,5 +14,9 @@ namespace DAWProject.Services.TicketService
         IEnumerable<Ticket> GetAllTicketsByUser(Guid id);
 
         Ticket CreateNewTicket(TicketDto ticketDto);
+        Ticket GetById(Guid ticketId);
+        void DeleteTicket(Ticket getById);
+        void Save();
+        void Update(Ticket ticket);
     }
 }

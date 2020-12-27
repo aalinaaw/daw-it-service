@@ -51,6 +51,25 @@ namespace DAWProject.Controllers
             var ticket = _ticketService.CreateNewTicket(ticketDto);
             return Ok(ticket);
         }
+        
+        public IActionResult Update(TicketDto ticketDto)
+        {
+
+            var ticket = _ticketService.GetById(ticketDto.Id);
+            ticket.Status = ticketDto.Status;
+            _ticketService.Update(ticket);
+            _ticketService.Save();
+            return Ok();
+        } 
+        
+        [HttpDelete("{ticketId}")]
+        public IActionResult Delete(Guid ticketId)
+        {
+            
+            _ticketService.DeleteTicket(_ticketService.GetById(ticketId));
+            _ticketService.Save();
+            return Ok();
+        }
 
         private List<TicketDto> mapTicketDtos(List<Ticket> tickets)
         {
@@ -62,6 +81,7 @@ namespace DAWProject.Controllers
                     Id = ticket.Id,
                     Description = ticket.Description,
                     TicketType = ticket.TicketType,
+                    Status = ticket.Status,
                     UserId = ticket.UserId,
                     Username = ticket.User.Username,
                     Employees = ticket.Employees.Select(employeeTicket => employeeTicket.Employee).ToList()

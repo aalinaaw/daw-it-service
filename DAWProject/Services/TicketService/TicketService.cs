@@ -28,8 +28,8 @@ namespace DAWProject.Services.TicketService
             {
                 Description = ticketDto.Description,
                 TicketTypeId = ticketDto.TicketType.Id,
-                //TicketType = ticketDto.TicketType,
-                User = _userService.GetById(ticketDto.UserId)
+                User = _userService.GetById(ticketDto.UserId),
+                Status = "In Progress"
             });
             var employees = _employeeService.GetAll().ToList();
             var empIds = employees.Select(employee => employee.Id).ToArray();
@@ -65,6 +65,26 @@ namespace DAWProject.Services.TicketService
             _ticketRepository.Save();
 
             return newTicket;
+        }
+
+        public Ticket GetById(Guid ticketId)
+        {
+            return _ticketRepository.FindById(ticketId);
+        }
+
+        public void DeleteTicket(Ticket ticket)
+        {
+            _ticketRepository.Delete(ticket);
+        }
+
+        public void Save()
+        {
+            _ticketRepository.Save();
+        }
+
+        public void Update(Ticket ticket)
+        {
+            _ticketRepository.Update(ticket);
         }
 
         public IEnumerable<Ticket> GetAllTickets()

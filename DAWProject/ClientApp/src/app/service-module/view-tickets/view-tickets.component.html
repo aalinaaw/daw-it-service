@@ -5,7 +5,9 @@
     <th scope="col">Description</th>
     <th scope="col">Ticket Type</th>
     <th scope="col">User</th>
+    <th scope="col">Status</th>
     <th scope="col">Employees</th>
+    <th scope="col">Actions</th>
   </tr>
   </thead>
   <tbody>
@@ -14,7 +16,12 @@
     <td>{{ticket.description}}</td>
     <td>{{ticket.ticketType.serviceName}}</td>
     <td>{{ticket.username}}</td>
+    <td>{{ticket.status}}</td>
     <td><span>{{getTicketEmployees(ticket)}}</span></td>
+    <td>
+      <app-edit-ticket (onDelete)="onDelete()" (onEdit)="onEdit()" (onSelectEdit)="onSelectEdit(ticket)"
+                       [ticket]="selectedTicket"></app-edit-ticket>
+    </td>
   </tr>
   </tbody>
 </table>

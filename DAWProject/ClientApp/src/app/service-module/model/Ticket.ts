@@ -12,4 +12,5 @@ export class Ticket {
   employees: Array<User>;
   userId: string;
   username: string;
+  status: string;
 }
