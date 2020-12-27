@@ -4,7 +4,7 @@
   >
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">DAWProject</a>
-      <span>Hello, {{username}}</span>
+      <span >Hello, <span appHighlight>{{username}}</span></span>
       <button
         class="navbar-toggler"
         type="button"
@@ -38,6 +38,12 @@
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="showForUser || showForEmployee">
             <a class="nav-link text-dark" [routerLink]="['/view-tickets']"
             >View Tickets</a
+            >
+          </li>
+
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="showForEmployee">
+            <a class="nav-link text-dark" [routerLink]="['/view-ticket-types']"
+            >View Ticket Types</a
             >
           </li>
 

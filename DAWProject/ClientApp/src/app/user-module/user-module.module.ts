@@ -8,15 +8,16 @@ import {FormsModule} from "@angular/forms";
 import {RegisterService} from "./register.service";
 import {UserService} from "./user.service";
 import { LoginEmployeeComponent } from './login-employee/login-employee.component';
+import { HighlightDirective } from './highlight.directive';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, HelpComponent, LoginEmployeeComponent],
+  declarations: [LoginComponent, RegisterComponent, HelpComponent, LoginEmployeeComponent, HighlightDirective],
   imports: [
     CommonModule,
     HttpClientModule,
     FormsModule
   ],
   providers: [RegisterService, UserService],
-  exports: [LoginComponent, RegisterComponent, HelpComponent, LoginEmployeeComponent]
+    exports: [LoginComponent, RegisterComponent, HelpComponent, LoginEmployeeComponent, HighlightDirective]
 })
 export class UserModuleModule { }

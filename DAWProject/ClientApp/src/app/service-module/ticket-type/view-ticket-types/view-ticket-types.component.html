@@ -1,0 +1,20 @@
+<app-create-ticket-type (onCreate)="onCreated()"></app-create-ticket-type>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col">Service Name</th>
+    <th scope="col">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let ticketType of ticketTypes">
+    <th scope="row">{{ticketType.id}}</th>
+    <td>{{ticketType.serviceName}}</td>
+    <td>
+      <app-edit-ticket-type (onEdit)="onEdited()" (onDelete)="onDeleted()" (onSelectEdit)="onSelectTicketType(ticketType)"
+                            [ticketType]="selectedTicketType"></app-edit-ticket-type>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -24,4 +24,16 @@ export class TicketService {
   getTicketsByUserId(userId: string) {
     return this.http.get<Array<Ticket>>( `${this.baseUrl}api/ticket/user/${userId}`);
   }
+
+  updateTicketType(ticketType: TicketType) {
+    return this.http.put( `${this.baseUrl}api/servicetype`, ticketType);
+  }
+
+  deleteTicketType(ticketTypeId: string) {
+    return this.http.delete( `${this.baseUrl}api/servicetype/${ticketTypeId}`);
+  }
+
+  createTicketType(ticketType: TicketType) {
+    return this.http.post( `${this.baseUrl}api/servicetype/`, ticketType);
+  }
 }

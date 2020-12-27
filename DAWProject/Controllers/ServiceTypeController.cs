@@ -38,5 +38,21 @@ namespace DAWProject.Controllers
             _serviceTypeService.Save();
             return Ok(newServiceType);
         }
+        
+        [HttpPut]
+        public IActionResult Update(ServiceType serviceType)
+        {
+            _serviceTypeService.Update(serviceType);
+            _serviceTypeService.Save();
+            return Ok();
+        }
+        
+        [HttpDelete("{serviceTypeId}")]
+        public IActionResult Delete(Guid serviceTypeId)
+        {
+            _serviceTypeService.Delete(_serviceTypeService.FindById(serviceTypeId));
+            _serviceTypeService.Save();
+            return Ok();
+        }
     }
 }
