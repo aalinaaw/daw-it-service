@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DAWProject.Models;
 using DAWProject.Models.DTOs;
+using DAWProject.Repositories.TicketAuditEntryRepository;
 using DAWProject.Repositories.TicketRepository;
 using DAWProject.Services.EmployeeService;
 using DAWProject.Services.UserService;
@@ -12,12 +13,14 @@ namespace DAWProject.Services.TicketService
     public class TicketService: ITicketService
     {
         private readonly ITicketRepository _ticketRepository;
+        private readonly ITicketAuditEntryRepository _ticketAuditEntryRepository;
         private readonly IEmployeeService _employeeService;
         private readonly IUserService _userService;
 
-        public TicketService(ITicketRepository ticketRepository, IEmployeeService employeeService, IUserService userService)
+        public TicketService(ITicketRepository ticketRepository, ITicketAuditEntryRepository ticketAuditEntryRepository, IEmployeeService employeeService, IUserService userService)
         {
             _ticketRepository = ticketRepository;
+            _ticketAuditEntryRepository = ticketAuditEntryRepository;
             _employeeService = employeeService;
             _userService = userService;
         }
@@ -30,6 +33,11 @@ namespace DAWProject.Services.TicketService
                 TicketTypeId = ticketDto.TicketType.Id,
                 User = _userService.GetById(ticketDto.UserId),
                 Status = "In Progress"
+            });
+            _ticketAuditEntryRepository.Create(new TicketAuditEntry
+            {
+                CreationDate = DateTime.Now,
+                TicketId = newTicket.Id
             });
             var employees = _employeeService.GetAll().ToList();
             var empIds = employees.Select(employee => employee.Id).ToArray();

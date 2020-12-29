@@ -38,6 +38,11 @@ namespace DAWProject.Data
                 .HasOne(p => p.TicketType)
                 .WithMany(type => type.Tickets)
                 .HasForeignKey(ticket => ticket.TicketTypeId);
+            
+            builder.Entity<Ticket>()
+                .HasOne(p => p.TicketAuditEntry)
+                .WithOne(tae => tae.Ticket)
+                .HasForeignKey<TicketAuditEntry>(tae => tae.TicketId);
 
             base.OnModelCreating(builder);
         }

@@ -2,6 +2,7 @@ using DAWProject.Data;
 using DAWProject.Helpers;
 using DAWProject.Repositories.EmployeeRepository;
 using DAWProject.Repositories.ServiceTypeRepository;
+using DAWProject.Repositories.TicketAuditEntryRepository;
 using DAWProject.Repositories.TicketRepository;
 using DAWProject.Repositories.UserRepository;
 using DAWProject.Repositories.UserTypeRepository;
@@ -57,6 +58,7 @@ namespace DAWProject
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IServiceTypeRepository, ServiceTypeRepository>();
             services.AddTransient<IUserTypeRepository, UserTypeRepository>();
+            services.AddTransient<ITicketAuditEntryRepository, TicketAuditEntryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

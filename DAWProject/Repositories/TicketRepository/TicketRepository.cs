@@ -37,7 +37,8 @@ namespace DAWProject.Repositories.TicketRepository
                 ticket.Employees.Any(employeeTicket => employeeTicket.EmployeeId.Equals(employee.Id)))
                 .Include(ticket => ticket.Employees)
                 .Include(ticket => ticket.TicketType)
-                .Include(ticket => ticket.User);
+                .Include(ticket => ticket.User)
+                .Include(ticket => ticket.TicketAuditEntry);
         }
     }
 }

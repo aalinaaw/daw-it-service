@@ -23,5 +23,7 @@ namespace DAWProject.Models
         public User User { get; set; }
         
         public String Status { get; set; }
+        
+        public TicketAuditEntry TicketAuditEntry { get; set; }
     }
 }
