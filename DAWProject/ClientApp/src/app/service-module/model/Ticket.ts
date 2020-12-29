@@ -5,6 +5,10 @@ export class TicketType {
   serviceName: string;
 }
 
+export class TicketAuditEntry {
+  creationDate: Date;
+}
+
 export class Ticket {
   id: string;
   description: string;
@@ -13,4 +17,5 @@ export class Ticket {
   userId: string;
   username: string;
   status: string;
+  auditEntry: TicketAuditEntry;
 }

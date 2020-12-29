@@ -28,7 +28,8 @@ namespace DAWProject.Repositories.TicketRepository
                 .Include(ticket => ticket.Employees)
                     .ThenInclude(et => et.Employee)
                 .Include(ticket => ticket.TicketType)
-                .Include(ticket => ticket.User);;
+                .Include(ticket => ticket.User)
+                .Include(ticket => ticket.TicketAuditEntry);
         }
 
         public IEnumerable<Ticket> FindByEmployee(Employee employee)

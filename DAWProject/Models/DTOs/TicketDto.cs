@@ -17,5 +17,8 @@ namespace DAWProject.Models.DTOs
         public List<Employee> Employees { get; set; }
 
         public String Status { get; set; }
+        
+        public TicketAuditEntry AuditEntry { get; set; }
+
     }
 }

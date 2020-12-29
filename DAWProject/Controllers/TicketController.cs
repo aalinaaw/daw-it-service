@@ -84,7 +84,8 @@ namespace DAWProject.Controllers
                     Status = ticket.Status,
                     UserId = ticket.UserId,
                     Username = ticket.User.Username,
-                    Employees = ticket.Employees.Select(employeeTicket => employeeTicket.Employee).ToList()
+                    Employees = ticket.Employees.Select(employeeTicket => employeeTicket.Employee).ToList(),
+                    AuditEntry= ticket.TicketAuditEntry
                 });
             }
 
