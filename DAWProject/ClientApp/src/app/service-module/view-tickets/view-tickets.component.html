@@ -1,26 +1,26 @@
 <table class="table">
   <thead>
   <tr>
-    <th scope="col">Id</th>
+    <th *ngIf="showForEmployee" scope="col">Id</th>
     <th scope="col">Description</th>
     <th scope="col">Ticket Type</th>
-    <th scope="col">User</th>
+    <th *ngIf="showForEmployee" scope="col">User</th>
     <th scope="col">Status</th>
-    <th scope="col">Creation Date</th>
+    <th *ngIf="showForEmployee" scope="col">Creation Date</th>
     <th scope="col">Employees</th>
-    <th scope="col">Actions</th>
+    <th *ngIf="showForEmployee" scope="col">Actions</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let ticket of tickets">
-    <th scope="row">{{ticket.id}}</th>
+    <th *ngIf="showForEmployee" scope="row">{{ticket.id}}</th>
     <td>{{ticket.description}}</td>
     <td>{{ticket.ticketType.serviceName}}</td>
-    <td>{{ticket.username}}</td>
+    <td *ngIf="showForEmployee">{{ticket.username}}</td>
     <td>{{ticket.status}}</td>
-    <td>{{ticket.auditEntry ? (ticket.auditEntry.creationDate | date:"dd/MM/yyyy") : "n/a"}}</td>
+    <td *ngIf="showForEmployee">{{ticket.auditEntry ? (ticket.auditEntry.creationDate | date:"dd/MM/yyyy") : "n/a"}}</td>
     <td><span>{{getTicketEmployees(ticket)}}</span></td>
-    <td>
+    <td *ngIf="showForEmployee">
       <app-edit-ticket (onDelete)="onDelete()" (onEdit)="onEdit()" (onSelectEdit)="onSelectEdit(ticket)"
                        [ticket]="selectedTicket"></app-edit-ticket>
     </td>

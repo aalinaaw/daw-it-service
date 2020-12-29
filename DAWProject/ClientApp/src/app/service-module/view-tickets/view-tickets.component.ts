@@ -11,6 +11,7 @@ import {AuthService} from "../../user-module/auth.service";
 export class ViewTicketsComponent implements OnInit {
   tickets: Array<Ticket>;
   selectedTicket: Ticket;
+  showForEmployee: boolean;
 
   constructor(private ticketService: TicketService, private authService: AuthService) { }
 
@@ -19,11 +20,13 @@ export class ViewTicketsComponent implements OnInit {
     if(employeeValue != null) {
       this.ticketService.getTicketsByEmployeeId(employeeValue.id).subscribe(result => {
         this.tickets = result;
+        this.showForEmployee = true
       })
     } else {
       const userId = this.authService.currentUserValue.id;
       this.ticketService.getTicketsByUserId(userId).subscribe(result => {
         this.tickets = result;
+        this.showForEmployee = false
       })
     }
   }
