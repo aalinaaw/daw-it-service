@@ -1,15 +1,15 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {Ticket} from "../../model/Ticket";
-import {TicketService} from "../../ticket.service";
+import {UserType} from "../../model/User";
+import {UserService} from "../../user.service";
 
 @Component({
-  selector: 'app-edit-ticket',
-  templateUrl: './edit-ticket.component.html',
-  styleUrls: ['./edit-ticket.component.css']
+  selector: 'app-edit-user-type',
+  templateUrl: './edit-user-type.component.html',
+  styleUrls: ['./edit-user-type.component.css']
 })
-export class EditTicketComponent implements OnInit {
+export class EditUserTypeComponent implements OnInit {
 
-  @Input() ticket: Ticket
+  @Input() userType: UserType
   @Output() onSelectEdit: EventEmitter<any> = new EventEmitter();
   @Output() onEdit: EventEmitter<any> = new EventEmitter();
   @Output() onDelete: EventEmitter<any> = new EventEmitter();
@@ -17,26 +17,27 @@ export class EditTicketComponent implements OnInit {
   // @ts-ignore
   @ViewChild('closeBtn') closeButton: ElementRef;
 
-  constructor(private ticketService: TicketService) {
-    this.ticket = new Ticket()
+  constructor(private userService: UserService) {
+    this.userType = new UserType()
   }
 
   ngOnInit() {
   }
 
-  onSelectEditButtonClick() {
+
+  onSelectEditClicked() {
     this.onSelectEdit.emit()
   }
 
   onSaveChanges() {
-    this.ticketService.updateTicket(this.ticket).subscribe(_ => {
+    this.userService.updateUserType(this.userType).subscribe(_ => {
       this.closeButton.nativeElement.click()
       this.onEdit.emit()
     });
   }
 
   onSelectDelete() {
-    this.ticketService.deleteTicket(this.ticket.id).subscribe(_ => {
+    this.userService.deleteUserType(this.userType.id).subscribe(_ => {
       this.closeButton.nativeElement.click()
       this.onDelete.emit()
     })

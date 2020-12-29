@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Ticket} from "../model/Ticket";
-import {TicketService} from "../ticket.service";
-import {AuthService} from "../../user-module/auth.service";
+import {Ticket} from "../../model/Ticket";
+import {TicketService} from "../../ticket.service";
+import {AuthService} from "../../../user-module/auth.service";
 
 @Component({
   selector: 'app-view-tickets',

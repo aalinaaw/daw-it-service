@@ -59,5 +59,18 @@ namespace DAWProject.Services.UserService
             _userTypeRepository.Create(userType);
             _userTypeRepository.Save();
         }
+
+        public void UpdateUserType(UserType userType)
+        {
+            _userTypeRepository.Update(userType);
+            _userTypeRepository.Save();
+        }
+
+        public void DeleteUserType(Guid id)
+        {
+            var userType = _userTypeRepository.FindById(id);
+            _userTypeRepository.Delete(userType);
+            _userTypeRepository.Save();
+        }
     }
 }

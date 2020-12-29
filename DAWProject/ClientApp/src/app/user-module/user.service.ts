@@ -12,4 +12,16 @@ export class UserService {
   public getUserTypes() {
     return this.http.get<Array<UserType>>( `${this.baseUrl}api/users/types`);
   }
+
+  createUserType(userType: UserType) {
+    return this.http.post( `${this.baseUrl}api/users/types`, userType);
+  }
+
+  updateUserType(userType: UserType) {
+    return this.http.put( `${this.baseUrl}api/users/types`, userType);
+  }
+
+  deleteUserType(id: string) {
+    return this.http.delete( `${this.baseUrl}api/users/types/${id}`);
+  }
 }

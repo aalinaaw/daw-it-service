@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TicketType} from "../../model/Ticket";
 import {TicketService} from "../../ticket.service";
-import {tick} from "@angular/core/testing";
 
 @Component({
   selector: 'app-view-ticket-types',

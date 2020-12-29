@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Ticket, TicketType} from "../model/Ticket";
 import {Router} from "@angular/router";
-import {RegisterService} from "../../user-module/register.service";
-import {UserService} from "../../user-module/user.service";
-import {TicketService} from "../ticket.service";
-import {AuthService} from "../../user-module/auth.service";
+import {Ticket, TicketType} from "../../model/Ticket";
+import {TicketService} from "../../ticket.service";
+import {AuthService} from "../../../user-module/auth.service";
+
+
 
 @Component({
   selector: 'app-create-ticket',

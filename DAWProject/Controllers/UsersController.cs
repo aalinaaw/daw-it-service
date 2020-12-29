@@ -1,4 +1,4 @@
-﻿using DAWProject.Helpers;
+﻿using System;
 using DAWProject.Models;
 using DAWProject.Models.DTOs;
 using DAWProject.Services.UserService;
@@ -38,12 +38,25 @@ namespace DAWProject.Controllers
             return Ok();
         }
         
+        [HttpPut("types")]
+        public IActionResult UpdateUserType(UserType userType)
+        {
+            _userService.UpdateUserType(userType);
+            return Ok();
+        }
+        
+        [HttpDelete("types/{id}")]
+        public IActionResult DeleteUserType(Guid id)
+        {
+            _userService.DeleteUserType(id);
+            return Ok();
+        }
+        
         [HttpPost]
         public IActionResult CreateUser(UserDto userDto)
         {
             _userService.CreateUser(userDto);
             return Ok();
         }
-
     }
 }

@@ -19,6 +19,7 @@ import {CreateTicketComponent} from "./service-module/ticket/create-ticket/creat
 import {ServiceModuleModule} from "./service-module/service-module.module";
 import {ViewTicketsComponent} from "./service-module/ticket/view-tickets/view-tickets.component";
 import {ViewTicketTypesComponent} from "./service-module/ticket-type/view-ticket-types/view-ticket-types.component";
+import {ViewUserTypesComponent} from "./user-module/user-type/view-user-types/view-user-types.component";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {ViewTicketTypesComponent} from "./service-module/ticket-type/view-ticket
       { path: 'help', component: HelpComponent, canActivate: [AuthGuard] },
       { path: 'create-ticket', component: CreateTicketComponent, canActivate: [AuthGuard] },
       { path: 'view-tickets', component: ViewTicketsComponent, canActivate: [AuthGuard] },
-      { path: 'view-ticket-types', component: ViewTicketTypesComponent, canActivate: [AuthGuard] }
+      { path: 'view-ticket-types', component: ViewTicketTypesComponent, canActivate: [AuthGuard] },
+      { path: 'view-user-types', component: ViewUserTypesComponent, canActivate: [AuthGuard] }
     ])
   ],
   providers: [

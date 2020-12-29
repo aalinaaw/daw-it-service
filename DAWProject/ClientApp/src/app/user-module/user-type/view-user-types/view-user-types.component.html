@@ -1,0 +1,20 @@
+<app-create-user-type (onCreate)="onCreated()"></app-create-user-type>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col">User Type</th>
+    <th scope="col">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let userType of userTypes">
+    <th scope="row">{{userType.id}}</th>
+    <td>{{userType.type}}</td>
+    <td>
+      <app-edit-user-type (onEdit)="onEdited()" (onDelete)="onDeleted()" (onSelectEdit)="onSelectUserType(userType)"
+                            [userType]="selectedUserType"></app-edit-user-type>
+    </td>
+  </tr>
+  </tbody>
+</table>

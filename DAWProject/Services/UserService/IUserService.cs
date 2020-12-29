@@ -16,5 +16,7 @@ namespace DAWProject.Services.UserService
         List<UserType> GetAllUserTypes();
 
         void CreateUserType(UserType userType);
+        void UpdateUserType(UserType userType);
+        void DeleteUserType(Guid id);
     }
 }

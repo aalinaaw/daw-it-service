@@ -47,6 +47,12 @@
             >
           </li>
 
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="showForEmployee">
+            <a class="nav-link text-dark" [routerLink]="['/view-user-types']"
+            >View User Types</a
+            >
+          </li>
+
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="showLoginForUser">
             <a class="nav-link text-dark" [routerLink]="['/login']"
             >Login</a
