@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreateTicketComponent } from './create-ticket/create-ticket.component';
+import { CreateTicketComponent } from './ticket/create-ticket/create-ticket.component';
 import {FormsModule} from "@angular/forms";
-import { ViewTicketsComponent } from './view-tickets/view-tickets.component';
+import { ViewTicketsComponent } from './ticket/view-tickets/view-tickets.component';
 import { ViewTicketTypesComponent } from './ticket-type/view-ticket-types/view-ticket-types.component';
 import { CreateTicketTypeComponent } from './ticket-type/create-ticket-type/create-ticket-type.component';
 import { EditTicketTypeComponent } from './ticket-type/edit-ticket-type/edit-ticket-type.component';
-import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
+import { EditTicketComponent } from './ticket/edit-ticket/edit-ticket.component';
 
 
 

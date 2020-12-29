@@ -15,9 +15,9 @@ import {LoginEmployeeComponent} from "./user-module/login-employee/login-employe
 import {JwtInterceptor} from "./user-module/jwt.interceptor";
 import {ErrorInterceptor} from "./user-module/error.interceptor";
 import {AuthGuard} from "./user-module/auth.guard";
-import {CreateTicketComponent} from "./service-module/create-ticket/create-ticket.component";
+import {CreateTicketComponent} from "./service-module/ticket/create-ticket/create-ticket.component";
 import {ServiceModuleModule} from "./service-module/service-module.module";
-import {ViewTicketsComponent} from "./service-module/view-tickets/view-tickets.component";
+import {ViewTicketsComponent} from "./service-module/ticket/view-tickets/view-tickets.component";
 import {ViewTicketTypesComponent} from "./service-module/ticket-type/view-ticket-types/view-ticket-types.component";
 
 @NgModule({
