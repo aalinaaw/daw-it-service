@@ -40,6 +40,12 @@ built using .NET Core and Angular.
  The creation API is accessible via a POST request and was left like this
  for development purposes.
  
+ # Use Cases
+ An employee can use the ticket types page to create, modify or delete existing types.
+ He can also modify the status of a ticket to show how it has progressed
+  
+ A user can create a ticket, view all the tickets he has created and their state.
+ 
  #### How employees are assigned when a ticket is created
  I've implemented a mechanism which assigns employees randomly to a ticket.   
  It consists in retrieving the total number of employees in the database, picking random number to select
@@ -51,9 +57,4 @@ built using .NET Core and Angular.
  the entities and give them different scopes. Also perhaps add a layer of security/privileges to what a user 
  can do based on his type.
  
- #### Use Cases
- An employee can use the ticket types page to create, modify or delete existing types.
- He can also modify the status of a ticket to show how it has progressed
- 
- A user can create a ticket, view all the tickets he has created and their state.
  
