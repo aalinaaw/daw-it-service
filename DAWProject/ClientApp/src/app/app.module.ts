@@ -20,6 +20,7 @@ import {ServiceModuleModule} from "./service-module/service-module.module";
 import {ViewTicketsComponent} from "./service-module/ticket/view-tickets/view-tickets.component";
 import {ViewTicketTypesComponent} from "./service-module/ticket-type/view-ticket-types/view-ticket-types.component";
 import {ViewUserTypesComponent} from "./user-module/user-type/view-user-types/view-user-types.component";
+import {AuthService} from "./user-module/auth.service";
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import {ViewUserTypesComponent} from "./user-module/user-type/view-user-types/vi
     ])
   ],
   providers: [
+    AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
